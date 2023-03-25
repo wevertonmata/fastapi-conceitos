@@ -4,7 +4,7 @@ from fastapi import Query, Header
 
 from typing import Optional
 
-router = APIRouter()
+router = APIRouter(tags=['calculadora'], prefix="/calculadora",responses={404: {"description": "Not found"}},)
 
 @router.get('')
 async def soma(a: int = Query(gt=0), b: int = Query(default=None, gt=0), c: Optional[int] = None, x_geek: str = Header(default=None)):

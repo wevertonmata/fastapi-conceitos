@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 
-from routes import calculadora_v1, cursos_v1
+from src.routes import calculadora_v1, cursos_v1
 
 app = FastAPI(
     title="Crud FastAPI Cursos",
@@ -17,9 +17,9 @@ async def docs_redirect():
 
 
 ## Routes
+app.include_router(cursos_v1.router, prefix="/api/v1")
 
-app.include_router(cursos_v1.router, tags=['cursos'], prefix="/api/v1/cursos")
-app.include_router(calculadora_v1.router, tags=['calculadora'], prefix="/api/v1/calculadora")
+app.include_router(calculadora_v1.router, prefix="/api/v1")
 
 if __name__ == "__main__":
     import uvicorn

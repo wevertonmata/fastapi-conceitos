@@ -3,10 +3,10 @@ from fastapi import APIRouter, HTTPException, status, Depends
 from fastapi.responses import Response
 from fastapi import Path
 
-from models import Curso, cursos
+from ..schemas.models import Curso, cursos
 from typing import Any, List, Optional
 
-router = APIRouter()
+router = APIRouter( tags=['cursos'], prefix="/cursos", responses={404: {"description": "Not found"}},)
 
 def fake_db():
     try:
