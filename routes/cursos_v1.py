@@ -17,7 +17,7 @@ def fake_db():
         sleep(1)
 
 
-@router.get('/api/v1/cursos', 
+@router.get('', 
          description="Retorna todos os cursos ou uma lista vazia", 
          summary="Retorna todos os cursos",
          response_model=List[Curso],
@@ -26,7 +26,7 @@ def fake_db():
 async def get_cursos(db: Any = Depends(fake_db)):
     return cursos
 
-@router.get('/api/v1/cursos/{curso_id}')
+@router.get('/{curso_id}')
 async def get_cursos(
     curso_id: int = Path(title="ID do curso",description=f"Deve ser entre 1 e {len(cursos)}",gt=0,lt=len(cursos)),
     db: Any = Depends(fake_db)
@@ -39,7 +39,7 @@ async def get_cursos(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Curso não encontrado.')
 
 
-@router.post("/api/v1/cursos", status_code=status.HTTP_201_CREATED)
+@router.post("", status_code=status.HTTP_201_CREATED)
 async def post_curso(curso: Curso):
           
     next_id: int = len(cursos) + 1
@@ -47,7 +47,7 @@ async def post_curso(curso: Curso):
     cursos.append(curso)
     return curso
 
-@router.put('/api/v1/cursos/{curso_id}')
+@router.put('/{curso_id}')
 async def put_curso(curso_id: int, curso: Curso):
     if curso_id in cursos:
         cursos[curso_id] = curso
@@ -57,7 +57,7 @@ async def put_curso(curso_id: int, curso: Curso):
     else:
          raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Curso não encontrado com id {curso_id}.')
 
-@router.delete('/api/v1/cursos/{curso_id}')
+@router.delete('/{curso_id}')
 async def delete_curso(curso_id: int):
     if curso_id in cursos:
         del cursos[curso_id]

@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from routes import cursos_router, calculadora_router
+from routes import calculadora_v1, cursos_v1
 
 app = FastAPI(
     title="Crud FastAPI Cursos",
@@ -8,9 +8,8 @@ app = FastAPI(
     description="API de estudo FastAPI."
 )
 
-app.include_router(cursos_router.router, tags=['cursos'])
-app.include_router(calculadora_router.router, tags=['calculadora'])
-
+app.include_router(cursos_v1.router, tags=['cursos'], prefix="/api/v1/cursos")
+app.include_router(calculadora_v1.router, tags=['calculadora'], prefix="/api/v1/calculadora")
 
 if __name__ == "__main__":
     import uvicorn
